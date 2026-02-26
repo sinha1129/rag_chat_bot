@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG Chat Assistant - Professional</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --secondary-color: #64748b;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+            --warning-color: #f59e0b;
+            --background-color: #f8fafc;
+            --surface-color: #ffffff;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-muted: #9ca3af;
+            --border-color: #e5e7eb;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .app-container {
+            display: flex;
+            flex: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 20px;
+            padding: 20px;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 300px;
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: var(--shadow-md);
+            overflow-y: auto;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .header {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header h1 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .status-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .status-card {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .status-card h3 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .status-card p {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-left: 8px;
+        }
+
+        .status-indicator.online {
+            background-color: var(--success-color);
+        }
+
+        .status-indicator.offline {
+            background-color: var(--error-color);
+        }
+
+        .chat-container {
+            flex: 1;
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        .chat-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 16px 20px;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background-color: var(--background-color);
+        }
+
+        .message {
+            margin-bottom: 16px;
+            max-width: 80%;
+            word-wrap: break-word;
+            animation: messageIn 0.3s ease-out;
+        }
+
+        @keyframes messageIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .user-message {
+            text-align: right;
+        }
+
+        .message-bubble {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 18px;
+            box-shadow: var(--shadow-sm);
+            max-width: 100%;
+            display: inline-block;
+        }
+
+        .user-message .message-bubble {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .assistant-message .message-bubble {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .message-meta {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .chat-input-container {
+            padding: 20px;
+            background-color: var(--surface-color);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .input-group {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+        }
+
+        #messageInput {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background-color: var(--surface-color);
+            color: var(--text-primary);
+        }
+
+        #messageInput:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        #sendButton {
+            padding: 12px 24px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #sendButton:hover {
+            background-color: var(--primary-hover);
+        }
+
+        #sendButton:disabled {
+            background-color: var(--text-muted);
+            cursor: not-allowed;
+        }
+
+        .typing-indicator {
+            display: none;
+            text-align: center;
+            padding: 12px;
+            color: var(--text-secondary);
+            font-style: italic;
+            font-size: 0.875rem;
+        }
+
+        .typing-indicator.active {
+            display: block;
+        }
+
+        .error-message {
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            color: var(--error-color);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+
+        .connection-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background-color: var(--warning-color);
+            color: white;
+            font-size: 0.875rem;
+            border-radius: 6px;
+        }
+
+        @media (max-width: 768px) {
+            .app-container {
+                flex-direction: column;
+                padding: 10px;
+            }
+
+            .sidebar {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .status-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="header">
+                <h1>🤖 RAG Assistant</h1>
+                <p>Retrieval-Augmented Generation</p>
+            </div>
+            
+            <div class="status-cards">
+                <div class="status-card">
+                    <h3>System Status</h3>
+                    <p>
+                        <span class="status-indicator" id="systemStatus"></span>
+                        <span id="systemStatusText">Checking...</span>
+                    </p>
+                </div>
+                
+                <div class="status-card">
+                    <h3>Knowledge Base</h3>
+                    <p id="documentCount">Loading...</p>
+                </div>
+                
+                <div class="status-card">
+                    <h3>RAG Engine</h3>
+                    <p id="ragStatus">Loading...</p>
+                </div>
+                
+                <div class="status-card">
+                    <h3>LLM Provider</h3>
+                    <p id="llmProvider">Loading...</p>
+                </div>
+                
+                <div class="status-card">
+                    <h3>Session Info</h3>
+                    <p id="sessionInfo">Loading...</p>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="chat-container">
+                <div class="chat-header">
+                    💬 Chat Interface
+                </div>
+                
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message assistant-message">
+                        <div class="message-bubble">
+                            👋 Welcome! I'm your RAG-powered assistant. I can help you with account management, security settings, billing inquiries, mobile app features, troubleshooting, and API integration.
+                        </div>
+                        <div class="message-meta">System</div>
+                    </div>
+                </div>
+
+                <div class="typing-indicator" id="typingIndicator">
+                    🤔 Assistant is thinking...
+                </div>
+
+                <div class="chat-input-container">
+                    <div class="input-group">
+                        <input 
+                            type="text" 
+                            id="messageInput" 
+                            placeholder="Ask me about your account, security, billing, or technical support..."
+                            autocomplete="off"
+                            onkeypress="handleKeyPress(event)"
+                        >
+                        <button id="sendButton" onclick="sendMessage()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 2L11 13M22 12L11 23M22 22L22 2Z"/>
+                            </svg>
+                            Send
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let sessionId = null;
+        let isConnected = false;
+        const API_BASE = 'http://localhost:3002/api';
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+        });
+
+        function initializeApp() {
+            checkSystemStatus();
+            createNewSession();
+            setupEventListeners();
+            document.getElementById('messageInput').focus();
+        }
+
+        function setupEventListeners() {
+            // Auto-refresh system status every 30 seconds
+            setInterval(checkSystemStatus, 30000);
+        }
+
+        function checkSystemStatus() {
+            fetch(`${API_BASE}/health`)
+                .then(response => response.json())
+                .then(data => {
+                    updateSystemStatus(data.status === 'healthy');
+                })
+                .catch(error => {
+                    console.error('Health check failed:', error);
+                    updateSystemStatus(false);
+                });
+        }
+
+        function updateSystemStatus(healthy) {
+            const statusIndicator = document.getElementById('systemStatus');
+            const statusText = document.getElementById('systemStatusText');
+            
+            if (healthy) {
+                statusIndicator.className = 'status-indicator online';
+                statusText.textContent = 'Online';
+                isConnected = true;
+            } else {
+                statusIndicator.className = 'status-indicator offline';
+                statusText.textContent = 'Offline';
+                isConnected = false;
+            }
+        }
+
+        function createNewSession() {
+            fetch(`${API_BASE}/chat`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: 'Hello, this is a new session'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    sessionId = data.data.sessionId;
+                    updateSessionInfo(data.data);
+                    updateSystemInfo();
+                    console.log('Session created:', sessionId);
+                } else {
+                    showError('Failed to create session');
+                }
+            })
+            .catch(error => {
+                console.error('Error creating session:', error);
+                showError('Failed to connect to server');
+            });
+        }
+
+        function updateSystemInfo() {
+            fetch(`${API_BASE}/status`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        updateStatusCards(data.data);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching status:', error);
+                });
+        }
+
+        function updateStatusCards(data) {
+            // Update document count
+            const documentCount = document.getElementById('documentCount');
+            if (data.documentManager) {
+                documentCount.textContent = `${data.documentManager.totalDocuments} docs`;
+            }
+
+            // Update RAG status
+            const ragStatus = document.getElementById('ragStatus');
+            if (data.ragPipeline) {
+                ragStatus.textContent = data.ragPipeline.totalChunksInStore + ' chunks';
+            }
+
+            // Update LLM provider
+            const llmProvider = document.getElementById('llmProvider');
+            if (data.llmService) {
+                llmProvider.textContent = data.llmService.provider || 'Unknown';
+            }
+
+            // Update session info
+            updateSessionInfo(data);
+        }
+
+        function updateSessionInfo(data) {
+            const sessionInfo = document.getElementById('sessionInfo');
+            if (data.sessionId) {
+                sessionInfo.textContent = `Active`;
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (!message || !isConnected) {
+                if (!isConnected) {
+                    showError('Server connection lost. Please refresh the page.');
+                }
+                return;
+            }
+
+            const sendButton = document.getElementById('sendButton');
+            const originalText = sendButton.innerHTML;
+            sendButton.disabled = true;
+            sendButton.innerHTML = `
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4v16M4 4h16M4 4Z" opacity="0.3"/>
+                    <path d="M4 12h16M4 12h16Z"/>
+                </svg>
+                Sending...
+            `;
+
+            addUserMessage(message);
+            showTypingIndicator();
+
+            fetch(`${API_BASE}/chat`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    sessionId: sessionId,
+                    message: message
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                hideTypingIndicator();
+                
+                if (data.success) {
+                    addAssistantMessage(data.data.reply);
+                    updateSystemInfo();
+                } else {
+                    showError(data.error?.message || 'Failed to get response');
+                }
+            })
+            .catch(error => {
+                hideTypingIndicator();
+                console.error('Error:', error);
+                showError('Connection error. Please try again.');
+            })
+            .finally(() => {
+                input.value = '';
+                sendButton.disabled = false;
+                sendButton.innerHTML = originalText;
+                document.getElementById('messageInput').focus();
+            });
+        }
+
+        function addUserMessage(message) {
+            const messagesDiv = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message user-message';
+            
+            const timestamp = new Date().toLocaleTimeString();
+            
+            messageDiv.innerHTML = `
+                <div class="message-bubble">
+                    ${escapeHtml(message)}
+                </div>
+                <div class="message-meta">${timestamp}</div>
+            `;
+            
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function addAssistantMessage(message) {
+            const messagesDiv = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message assistant-message';
+            
+            const timestamp = new Date().toLocaleTimeString();
+            
+            messageDiv.innerHTML = `
+                <div class="message-bubble">
+                    ${escapeHtml(message)}
+                </div>
+                <div class="message-meta">${timestamp}</div>
+            `;
+            
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            document.getElementById('typingIndicator').classList.add('active');
+        }
+
+        function hideTypingIndicator() {
+            document.getElementById('typingIndicator').classList.remove('active');
+        }
+
+        function showError(message) {
+            const messagesDiv = document.getElementById('chatMessages');
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.textContent = '⚠️ ' + message;
+            messagesDiv.appendChild(errorDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>

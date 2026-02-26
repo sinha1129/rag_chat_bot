@@ -1,0 +1,321 @@
+{
+  "sessions": {
+    "687bb38f487f2dd030bb2f6f5a796af5": {
+      "id": "687bb38f487f2dd030bb2f6f5a796af5",
+      "createdAt": "2026-02-25T17:52:41.329Z",
+      "lastActivity": "2026-02-25T17:53:13.194Z",
+      "messages": [
+        {
+          "id": "247af076480b3053",
+          "role": "user",
+          "content": "Hello, this is a new session",
+          "timestamp": "2026-02-25T17:52:41.333Z",
+          "metadata": {
+            "tokensUsed": 0,
+            "model": "",
+            "retrievedChunks": 0,
+            "similarityScores": []
+          }
+        },
+        {
+          "id": "d74dc2f4bc5d5a36",
+          "role": "assistant",
+          "content": "I don't have enough information in my knowledge base to answer: \"Hello, this is a new session\". Please try rephrasing your question or contact support for more specific assistance.",
+          "timestamp": "2026-02-25T17:52:41.344Z",
+          "metadata": {
+            "tokensUsed": 0,
+            "model": "",
+            "retrievedChunks": 0,
+            "similarityScores": []
+          }
+        },
+        {
+          "id": "88ecea2cc66dbe39",
+          "role": "user",
+          "content": "Hello",
+          "timestamp": "2026-02-25T17:52:53.291Z",
+          "metadata": {
+            "tokensUsed": 0,
+            "model": "",
+            "retrievedChunks": 0,
+            "similarityScores": []
+          }
+        },
+        {
+          "id": "1d1d446eaa75c30c",
+          "role": "assistant",
+          "content": "I don't have enough information in my knowledge base to answer: \"Hello\". Please try rephrasing your question or contact support for more specific assistance.",
+          "timestamp": "2026-02-25T17:52:53.297Z",
+          "metadata": {
+            "tokensUsed": 0,
+            "model": "",
+            "retrievedChunks": 0,
+            "similarityScores": []
+          }
+        },
+        {
+          "id": "2d6f557b3da1958c",
+          "role": "user",
+          "content": "How do I reset my password?",
+          "timestamp": "2026-02-25T17:53:13.187Z",
+          "metadata": {
+            "tokensUsed": 0,
+            "model": "",
+            "retrievedChunks": 0,
+            "similarityScores": []
+          }
+        },
+        {
+          "id": "b6733fc8d0f71994",
+          "role": "assistant",
+          "content": "I don't have enough information in my knowledge base to answer: \"How do I reset my password?\". Please try rephrasing your question or contact support for more specific assistance.",
+          "timestamp": "2026-02-25T17:53:13.194Z",
+          "metadata": {
+            "tokensUsed": 0,
+            "model": "",
+            "retrievedChunks": 0,
+            "similarityScores": []
+          }
+        }
+      ],
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36",
+        "ip": "::1"
+      },
+      "messageCount": 6
+    },
+    "58a7b2610da12800f343063906cfb61c": {
+      "id": "58a7b2610da12800f343063906cfb61c",
+      "createdAt": "2026-02-25T18:02:18.710Z",
+      "lastActivity": "2026-02-25T18:04:49.172Z",
+      "messages": [
+        {
+          "id": "afdffeb0071ed93e",
+          "role": "user",
+          "content": "Hello",
+          "timestamp": "2026-02-25T18:02:29.069Z",
+          "metadata": {
+            "tokensUsed": 0,
+            "model": "",
+            "retrievedChunks": 0,
+            "similarityScores": []
+          }
+        },
+        {
+          "id": "6aa3e0d8805ebe2d",
+          "role": "assistant",
+          "content": "I don't have enough information in my knowledge base to answer: \"Hello\". Please try rephrasing your question or contact support for more specific assistance.",
+          "timestamp": "2026-02-25T18:02:29.076Z",
+          "metadata": {
+            "tokensUsed": 0,
+            "model": "",
+            "retrievedChunks": 0,
+            "similarityScores": []
+          }
+        },
+        {
+          "id": "92bccaf665db2933",
+          "role": "user",
+          "content": "password",
+          "timestamp": "2026-02-25T18:04:37.417Z",
+          "metadata": {
+            "tokensUsed": 0,
+            "model": "",
+            "retrievedChunks": 0,
+            "similarityScores": []
+          }
+        },
+        {
+          "id": "3b4ce8eb97b201d3",
+          "role": "assistant",
+          "content": "I don't have enough information in my knowledge base to answer: \"password\". Please try rephrasing your question or contact support for more specific assistance.",
+          "timestamp": "2026-02-25T18:04:37.426Z",
+          "metadata": {
+            "tokensUsed": 0,
+            "model": "",
+            "retrievedChunks": 0,
+            "similarityScores": []
+          }
+        },
+        {
+          "id": "12477bae9c106c1e",
+          "role": "user",
+          "content": "password",
+          "timestamp": "2026-02-25T18:04:49.162Z",
+          "metadata": {
+            "tokensUsed": 0,
+            "model": "",
+            "retrievedChunks": 0,
+            "similarityScores": []
+          }
+        },
+        {
+          "id": "60cb28a591c0cfc0",
+          "role": "assistant",
+          "content": "I don't have enough information in my knowledge base to answer: \"password\". Please try rephrasing your question or contact support for more specific assistance.",
+          "timestamp": "2026-02-25T18:04:49.172Z",
+          "metadata": {
+            "tokensUsed": 0,
+            "model": "",
+            "retrievedChunks": 0,
+            "similarityScores": []
+          }
+        }
+      ],
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36",
+        "ip": "::1"
+      },
+      "messageCount": 8
+    },
+    "5d778c36749cfdd41d99e9a52d0a604b": {
+      "id": "5d778c36749cfdd41d99e9a52d0a604b",
+      "createdAt": "2026-02-25T18:05:22.936Z",
+      "lastActivity": "2026-02-25T18:05:30.500Z",
+      "messages": [
+        {
+          "id": "c7b2e6a127277b42",
+          "role": "user",
+          "content": "Hello, this is a new session",
+          "timestamp": "2026-02-25T18:05:22.938Z",
+          "metadata": {
+            "tokensUsed": 0,
+            "model": "",
+            "retrievedChunks": 0,
+            "similarityScores": []
+          }
+        },
+        {
+          "id": "8b2aa796cb83df25",
+          "role": "assistant",
+          "content": "I don't have enough information in my knowledge base to answer: \"Hello, this is a new session\". Please try rephrasing your question or contact support for more specific assistance.",
+          "timestamp": "2026-02-25T18:05:22.950Z",
+          "metadata": {
+            "tokensUsed": 0,
+            "model": "",
+            "retrievedChunks": 0,
+            "similarityScores": []
+          }
+        },
+        {
+          "id": "b26246539fee28c1",
+          "role": "user",
+          "content": "password",
+          "timestamp": "2026-02-25T18:05:30.491Z",
+          "metadata": {
+            "tokensUsed": 0,
+            "model": "",
+            "retrievedChunks": 0,
+            "similarityScores": []
+          }
+        },
+        {
+          "id": "3e99b816cb691eff",
+          "role": "assistant",
+          "content": "I don't have enough information in my knowledge base to answer: \"password\". Please try rephrasing your question or contact support for more specific assistance.",
+          "timestamp": "2026-02-25T18:05:30.500Z",
+          "metadata": {
+            "tokensUsed": 0,
+            "model": "",
+            "retrievedChunks": 0,
+            "similarityScores": []
+          }
+        }
+      ],
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36",
+        "ip": "::1"
+      },
+      "messageCount": 4
+    },
+    "c7452bbb8530de060f433195edc70f15": {
+      "id": "c7452bbb8530de060f433195edc70f15",
+      "createdAt": "2026-02-25T18:07:49.813Z",
+      "lastActivity": "2026-02-25T18:09:10.398Z",
+      "messages": [
+        {
+          "id": "43b24c72fe12ca54",
+          "role": "user",
+          "content": "Password reset",
+          "timestamp": "2026-02-25T18:08:11.443Z",
+          "metadata": {
+            "tokensUsed": 0,
+            "model": "",
+            "retrievedChunks": 0,
+            "similarityScores": []
+          }
+        },
+        {
+          "id": "8339b5331a1673c7",
+          "role": "assistant",
+          "content": "You can reset your password from Settings > Security. Click on \"Change Password\" and enter your current password followed by the new password.",
+          "timestamp": "2026-02-25T18:08:11.452Z",
+          "metadata": {
+            "tokensUsed": 0,
+            "model": "",
+            "retrievedChunks": 0,
+            "similarityScores": []
+          }
+        },
+        {
+          "id": "1d97692c78aa52d7",
+          "role": "user",
+          "content": "2fa",
+          "timestamp": "2026-02-25T18:08:18.174Z",
+          "metadata": {
+            "tokensUsed": 0,
+            "model": "",
+            "retrievedChunks": 0,
+            "similarityScores": []
+          }
+        },
+        {
+          "id": "5c48878e44556aa1",
+          "role": "assistant",
+          "content": "Two-Factor Authentication (2FA) adds an extra layer of security. Enable 2FA from Settings > Security > Two-Factor Authentication.",
+          "timestamp": "2026-02-25T18:08:18.186Z",
+          "metadata": {
+            "tokensUsed": 0,
+            "model": "",
+            "retrievedChunks": 0,
+            "similarityScores": []
+          }
+        },
+        {
+          "id": "e46d7e551c36edf2",
+          "role": "user",
+          "content": "Mobile App Features",
+          "timestamp": "2026-02-25T18:09:10.391Z",
+          "metadata": {
+            "tokensUsed": 0,
+            "model": "",
+            "retrievedChunks": 0,
+            "similarityScores": []
+          }
+        },
+        {
+          "id": "861f04614dab1a5c",
+          "role": "assistant",
+          "content": "Our mobile app is available for both iOS and Android devices. Download it from the App Store or Google Play Store.",
+          "timestamp": "2026-02-25T18:09:10.398Z",
+          "metadata": {
+            "tokensUsed": 0,
+            "model": "",
+            "retrievedChunks": 0,
+            "similarityScores": []
+          }
+        }
+      ],
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36",
+        "ip": "::1"
+      },
+      "messageCount": 10
+    }
+  },
+  "metadata": {
+    "totalSessions": 4,
+    "lastSaved": "2026-02-25T18:09:10.398Z",
+    "version": "1.0"
+  }
+}

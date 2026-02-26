@@ -1,0 +1,245 @@
+# 🔄 RAG GenAI Assistant - System Flow & Architecture
+
+## 📋 Overall System Flow
+
+```
+User Input → Frontend → API Endpoint → RAG Pipeline → LLM API → Response → Frontend → User
+```
+
+## 🏗️ Detailed Architecture Flow
+
+### 1. **Initialization Phase**
+```
+Start Application
+├── Load docs.json
+├── Chunk documents (300-500 tokens)
+├── Generate embeddings for each chunk
+├── Store embeddings in vector database
+└── Start API server
+```
+
+### 2. **Chat Request Flow**
+```
+User sends message
+├── Frontend: Capture input + sessionId
+├── API: POST /api/chat
+│   ├── Validate request
+│   ├── Retrieve conversation history (3-5 pairs)
+│   ├── Generate query embedding
+│   ├── Perform similarity search
+│   │   ├── Calculate cosine similarity
+│   │   ├── Filter by threshold
+│   │   └── Get top 3 chunks
+│   ├── Construct prompt
+│   │   ├── System instructions
+│   │   ├── Retrieved context
+│   │   ├── Conversation history
+│   │   └── User question
+│   ├── Call LLM API
+│   │   ├── Send structured prompt
+│   │   ├── Handle errors/retries
+│   │   └── Log token usage
+│   ├── Update conversation history
+│   └── Return response
+└── Frontend: Display response
+```
+
+## 📊 Data Flow Diagram
+
+### Document Processing Flow
+```
+docs.json → Document Parser → Chunker → Embedding Generator → Vector Store
+     │              │            │               │                │
+     │              │            │               │                │
+     └── Raw Text ──┴── Chunks ──┴── Vectors ─────┴── Indexed Data
+```
+
+### Query Processing Flow
+```
+User Query → Query Embedding → Similarity Search → Context Retrieval → Prompt Construction → LLM → Response
+     │              │               │                   │                  │           │
+     │              │               │                   │                  │           │
+     └── Text ──────┴── Vector ─────┴── Relevant Chunks ──┴── Context + History ──┴── Answer
+```
+
+## 🔧 Component Interactions
+
+### 1. **Document Management Module**
+```
+DocumentManager
+├── loadDocuments() → docs.json
+├── chunkDocuments(text, chunkSize=300-500)
+├── generateEmbeddings(chunks)
+└── storeInVectorDB(embeddings)
+```
+
+### 2. **RAG Pipeline Module**
+```
+RAGPipeline
+├── generateQueryEmbedding(query)
+├── similaritySearch(queryEmbedding, topK=3)
+├── filterByThreshold(results, threshold=0.7)
+├── constructPrompt(context, history, question)
+└── handleLowSimilarity()
+```
+
+### 3. **LLM Integration Module**
+```
+LLMService
+├── callLLM(prompt, temperature=0-0.3)
+├── handleAPIErrors()
+├── logTokenUsage()
+└── retryMechanism()
+```
+
+### 4. **Conversation Management Module**
+```
+ConversationManager
+├── getHistory(sessionId, limit=3-5)
+├── addToHistory(sessionId, message, response)
+├── maintainContext()
+└── sessionHandling()
+```
+
+## 🔄 Request-Response Cycle
+
+### API Request Flow
+```
+POST /api/chat
+{
+  "sessionId": "abc123",
+  "message": "How can I reset my password?"
+}
+
+↓ Processing Steps ↓
+
+1. Validate input
+2. Get conversation history for sessionId
+3. Generate embedding for user message
+4. Search vector database for similar chunks
+5. Apply similarity threshold
+6. If similarity < threshold → Return fallback
+7. Construct prompt with context + history
+8. Call LLM API
+9. Update conversation history
+10. Return response
+```
+
+### API Response Flow
+```
+{
+  "reply": "Users can reset their password from Settings > Security.",
+  "tokensUsed": 120,
+  "retrievedChunks": 3,
+  "similarityScores": [0.85, 0.82, 0.78] // Optional
+}
+```
+
+## 🗂️ File Structure & Data Flow
+
+### Project Structure
+```
+assignment/
+├── backend/
+│   ├── server.js (or app.py)
+│   ├── services/
+│   │   ├── documentManager.js
+│   │   ├── ragPipeline.js
+│   │   ├── llmService.js
+│   │   └── conversationManager.js
+│   ├── data/
+│   │   ├── docs.json
+│   │   └── vectorStore.json (or SQLite DB)
+│   └── routes/
+│       └── chat.js
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── services/
+│   │   └── App.js
+│   └── package.json
+└── flow.txt
+```
+
+### Data Storage Flow
+```
+docs.json → Processing → Vector Store → Query → Results → Context → LLM → Response
+    │           │           │          │        │        │        │
+    │           │           │          │        │        │        │
+    └── Raw ────┴── Chunks ──┴── Vectors ─┴── Search ─┴── Prompt ─┴── Answer
+```
+
+## ⚡ Performance Considerations
+
+### Optimization Points
+1. **Embedding Caching**: Cache frequently used embeddings
+2. **Batch Processing**: Process multiple chunks together
+3. **Similarity Threshold**: Tune for optimal retrieval
+4. **Context Window**: Limit conversation history size
+5. **Error Handling**: Graceful degradation on failures
+
+### Memory Management
+```
+Vector Store (In-memory/SQLite)
+├── Document embeddings
+├── Metadata (title, chunk_id)
+├── Similarity index
+└── Conversation sessions
+```
+
+## 🚨 Error Handling Flow
+
+### Error Scenarios
+```
+API Errors
+├── Invalid input → 400 Bad Request
+├── No documents → 500 Server Error
+├── LLM API failure → Fallback response
+├── Low similarity → "I don't have enough information"
+└── Rate limit → Retry with exponential backoff
+```
+
+### Fallback Mechanism
+```
+If similarity < threshold OR LLM fails:
+├── Return: "I don't have enough information to answer this question."
+├── Log the issue
+├── Suggest rephrasing
+└── Maintain conversation flow
+```
+
+## 🎯 Success Criteria Flow
+
+### What Makes It Work
+1. ✅ Real embedding-based retrieval (not keyword search)
+2. ✅ Proper document chunking and storage
+3. ✅ Similarity threshold implementation
+4. ✅ Context-aware responses
+5. ✅ Conversation history management
+6. ✅ Error handling and fallbacks
+7. ✅ Token usage tracking
+8. ✅ Clean API interface
+
+### Testing Flow
+```
+Unit Tests
+├── Document chunking
+├── Embedding generation
+├── Similarity search
+├── Prompt construction
+└── API endpoints
+
+Integration Tests
+├── End-to-end RAG pipeline
+├── LLM API integration
+├── Conversation management
+└── Error scenarios
+
+User Acceptance Tests
+├── Query accuracy
+├── Response relevance
+├── UI/UX experience
+└── Performance under load
+```
+
+This flow provides the complete roadmap for building the RAG GenAI assistant module by module.

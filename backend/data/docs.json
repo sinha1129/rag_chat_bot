@@ -1,0 +1,34 @@
+[
+  {
+    "title": "Reset Password",
+    "content": "Users can reset their password from Settings > Security. Click on 'Change Password' and enter your current password followed by the new password. Make sure the new password is at least 8 characters long and includes a mix of letters, numbers, and special characters. You will receive a confirmation email once the password is successfully changed."
+  },
+  {
+    "title": "Account Setup",
+    "content": "To set up a new account, click on the 'Sign Up' button on the homepage. Enter your email address, create a strong password, and provide your full name. After registration, you'll receive a verification email. Click the verification link within 24 hours to activate your account. Once verified, you can complete your profile by adding a profile picture and additional information."
+  },
+  {
+    "title": "Two-Factor Authentication",
+    "content": "Two-Factor Authentication (2FA) adds an extra layer of security to your account. Enable 2FA from Settings > Security > Two-Factor Authentication. You can use an authenticator app like Google Authenticator or receive SMS codes. When enabled, you'll need to enter both your password and a verification code to log in. We recommend using an authenticator app for better security."
+  },
+  {
+    "title": "Data Privacy",
+    "content": "We take data privacy seriously. Your personal information is encrypted and stored securely. We never share your data with third parties without your explicit consent. You can download all your data from Settings > Privacy > Download My Data. If you wish to delete your account, go to Settings > Privacy > Delete Account. Please note that account deletion is permanent and cannot be undone."
+  },
+  {
+    "title": "Billing and Payments",
+    "content": "We accept various payment methods including credit cards, debit cards, and PayPal. To update your payment method, go to Settings > Billing > Payment Methods. Invoices are sent to your registered email address at the beginning of each billing cycle. You can view your payment history and download invoices from the billing dashboard. Refunds are processed within 5-7 business days."
+  },
+  {
+    "title": "Mobile App Features",
+    "content": "Our mobile app is available for both iOS and Android devices. Download it from the App Store or Google Play Store. The mobile app includes all core features including document management, real-time synchronization, and offline mode. You can enable push notifications to stay updated on important activities. The app automatically syncs your data when connected to the internet."
+  },
+  {
+    "title": "Troubleshooting Login Issues",
+    "content": "If you're having trouble logging in, first check your internet connection. Clear your browser cache and cookies, then try again. Make sure you're using the correct email and password. If you've forgotten your password, use the 'Forgot Password' link. For persistent issues, contact support at help@example.com or use the live chat feature available on the login page."
+  },
+  {
+    "title": "API Integration",
+    "content": "Our API allows developers to integrate our services into their applications. To get started, visit the Developer Dashboard and generate an API key. The API supports RESTful endpoints with JSON responses. Rate limits are applied to ensure fair usage. Comprehensive documentation is available at docs.example.com/api. We provide SDKs for popular programming languages including Python, JavaScript, and Java."
+  }
+]
